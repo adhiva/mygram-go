@@ -15,6 +15,8 @@ import (
 	"golang-mygram/service/servicephoto"
 	"golang-mygram/service/servicesocialmedia"
 	"golang-mygram/service/serviceuser"
+	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -67,4 +69,11 @@ func NewRouter(r *gin.Engine, db *gorm.DB) {
 
 	// routing docs
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"project":  "mygram-api-giva",
+			"status":   "healthy",
+			"datetime": time.Now(),
+		})
+	})
 }
